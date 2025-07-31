@@ -66,7 +66,7 @@ const upload = () => {
         setStatusText(`✅ Analysis complete! ATS Match Score: ${atsScore}/10`);
         setStatusText('Analysis complete, redirecting...');
         console.log(data);
-        //navigate(`/resume/${uuid}`);
+        navigate(`/resume/${uuid}`);
     }
 
     /* it handle the form of the analyser* */
