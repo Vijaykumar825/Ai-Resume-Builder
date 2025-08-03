@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { usePuterStore } from '~/lib/puter'
 import { useLocation, useNavigate } from 'react-router';
+
+
 export const meta=() => ([
   { title: 'Resumeind | Auth' },
   { name: 'description', content: 'Log into your account' },

@@ -1,9 +1,9 @@
 import {Link, useNavigate, useParams} from "react-router";
 import {useEffect, useState} from "react";
 import {usePuterStore} from "~/lib/puter";
-import Summary from "./Constants/Summary";
-import ATS from "./Constants/ATS";
-import Details from "./Constants/Details";
+import Summary from "~/components/Summary";
+import ATS from "~/components/ATS";
+import Details from "~/components/Details";
 
 export const meta = () => ([
     { title: 'Resumind | Review ' },
@@ -43,7 +43,7 @@ const resume = () => {
             setImageUrl(imageUrl);
 
             setFeedback(data.feedback);
-            console.log({resumeUrl, imageUrl, feedback: data.feedback });
+            console.log({ companyName: data.companyName, resumeUrl, imageUrl, feedback: data.feedback ,jobTitle: data.jobTitle, jobDescription: data.jobDescription });
         }
 
         loadResume();
@@ -76,9 +76,21 @@ const resume = () => {
                     {feedback ? (
                         <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
                             <Summary feedback={feedback}/>
+                            <ATS
+                            score={feedback.ats_compatibility.rating}
+                            suggestions={
+                              feedback.improvement_suggestions
+                                ? feedback.improvement_suggestions.map(tip => ({
+                                    type: "improve", // or "good" if you have logic to determine this
+                                    tip
+                                  }))
+                                : []
+                            }
+                          />
+                              
+                            <Details feedback={feedback} />
 
-                            <ATS feedback={feedback}/>
-                            <Details feedback={feedback}/>
+                            
                             
                         </div>
                     ) : (

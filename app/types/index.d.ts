@@ -55,4 +55,17 @@ interface Feedback {
       explanation: string;
     }[];
   };
+
+  // New extended fields
+  ats_compatibility: {
+    rating: number;
+    feedback: string;
+  };
+  job_alignment: {
+    rating: number;
+    feedback: string;
+  };
+  keywords_missing: string[];
+  final_advice: string;
+  improvement_suggestions: string[];
 }

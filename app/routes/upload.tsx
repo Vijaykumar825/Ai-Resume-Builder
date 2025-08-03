@@ -52,7 +52,7 @@ const upload = () => {
 
         const feedback = await ai.feedback(
             uploadedFile.path,
-            prepareInstructions({jobTitle,jobDescription,}),
+            prepareInstructions({jobTitle, jobDescription, AIResponseFormat: "json"}),
         )
         if (!feedback) return setStatusText('Error: Failed to analyze resume');
 
@@ -62,9 +62,6 @@ const upload = () => {
 
         data.feedback = JSON.parse(feedbackText);
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
-        const atsScore = data.feedback?.job_fit_analysis?.match_score ?? "N/A";
-        setStatusText(`✅ Analysis complete! ATS Match Score: ${atsScore}/10`);
-        setStatusText('Analysis complete, redirecting...');
         console.log(data);
         navigate(`/resume/${uuid}`);
     }
