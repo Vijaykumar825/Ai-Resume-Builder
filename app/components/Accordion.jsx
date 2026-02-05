@@ -1,14 +1,7 @@
-import type { ReactNode } from "react";
 import React, { createContext, useContext, useState } from "react";
 import { cn } from "~/lib/utils";
 
-interface AccordionContextType {
-    activeItems: string[];
-    toggleItem: (id: string) => void;
-    isItemActive: (id: string) => boolean;
-}
-
-const AccordionContext = createContext<AccordionContextType | undefined>(
+const AccordionContext = createContext(
     undefined
 );
 
@@ -20,24 +13,17 @@ const useAccordion = () => {
     return context;
 };
 
-interface AccordionProps {
-    children: ReactNode;
-    defaultOpen?: string;
-    allowMultiple?: boolean;
-    className?: string;
-}
-
-export const Accordion: React.FC<AccordionProps> = ({
+export const Accordion = ({
                                                         children,
                                                         defaultOpen,
                                                         allowMultiple = false,
                                                         className = "",
                                                     }) => {
-    const [activeItems, setActiveItems] = useState<string[]>(
+    const [activeItems, setActiveItems] = useState(
         defaultOpen ? [defaultOpen] : []
     );
 
-    const toggleItem = (id: string) => {
+    const toggleItem = (id) => {
         setActiveItems((prev) => {
             if (allowMultiple) {
                 return prev.includes(id)
@@ -49,7 +35,7 @@ export const Accordion: React.FC<AccordionProps> = ({
         });
     };
 
-    const isItemActive = (id: string) => activeItems.includes(id);
+    const isItemActive = (id) => activeItems.includes(id);
 
     return (
         <AccordionContext.Provider
@@ -60,13 +46,7 @@ export const Accordion: React.FC<AccordionProps> = ({
     );
 };
 
-interface AccordionItemProps {
-    id: string;
-    children: ReactNode;
-    className?: string;
-}
-
-export const AccordionItem: React.FC<AccordionItemProps> = ({
+export const AccordionItem = ({
                                                                 id,
                                                                 children,
                                                                 className = "",
@@ -78,15 +58,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
     );
 };
 
-interface AccordionHeaderProps {
-    itemId: string;
-    children: ReactNode;
-    className?: string;
-    icon?: ReactNode;
-    iconPosition?: "left" | "right";
-}
-
-export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
+export const AccordionHeader = ({
                                                                     itemId,
                                                                     children,
                                                                     className = "",
@@ -138,13 +110,7 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
     );
 };
 
-interface AccordionContentProps {
-    itemId: string;
-    children: ReactNode;
-    className?: string;
-}
-
-export const AccordionContent: React.FC<AccordionContentProps> = ({
+export const AccordionContent = ({
                                                                       itemId,
                                                                       children,
                                                                       className = "",

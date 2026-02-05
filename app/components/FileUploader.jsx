@@ -2,12 +2,8 @@ import {useState, useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
 import { formatSize } from '../lib/utils'
 
-interface FileUploaderProps {
-    onFileSelect?: (file: File | null) => void;
-}
-
-const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
-    const onDrop = useCallback((acceptedFiles: File[]) => {
+const FileUploader = ({ onFileSelect }) => {
+    const onDrop = useCallback((acceptedFiles) => {
         const file = acceptedFiles[0] || null;
 
         onFileSelect?.(file);

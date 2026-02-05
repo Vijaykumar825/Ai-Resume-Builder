@@ -15,7 +15,7 @@ const resume = () => {
     const { id } = useParams();
     const [imageUrl, setImageUrl] = useState('');
     const [resumeUrl, setResumeUrl] = useState('');
-    const [feedback, setFeedback] = useState<Feedback | null>(null);
+    const [feedback, setFeedback] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -77,9 +77,9 @@ const resume = () => {
                         <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
                             <Summary feedback={feedback}/>
                             <ATS
-                            score={feedback.ats_compatibility.rating}
+                            score={feedback?.ats_compatibility?.rating || 0}
                             suggestions={
-                              feedback.improvement_suggestions
+                              feedback?.improvement_suggestions
                                 ? feedback.improvement_suggestions.map(tip => ({
                                     type: "improve", // or "good" if you have logic to determine this
                                     tip

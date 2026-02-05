@@ -1,8 +1,6 @@
-interface ScoreBadgeProps {
-  score: number;
-}
+import React from 'react';
 
-const ScoreBadge: React.FC<ScoreBadgeProps> = ({ score }) => {
+const ScoreBadge = ({ score }) => {
   let badgeColor = '';
   let badgeText = '';
 

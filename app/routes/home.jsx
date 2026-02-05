@@ -1,5 +1,4 @@
 import Navbar from "~/components/Navbar";
-import type { Route } from "./+types/home";
 
 import ResumeCard from "~/components/ResumeCard";
 import { usePuterStore } from '~/lib/puter'
@@ -7,7 +6,7 @@ import { useEffect,useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 
-export function meta({}: Route.MetaArgs) {
+export function meta({}) {
   return [
     { title: "Resumeind" },
     { name: "description", content: "To land Your Dream job" },
@@ -16,7 +15,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   const {auth,kv} = usePuterStore();
-  const [resumes, setResumes] = useState<Resume[]>([]);
+  const [resumes, setResumes] = useState([]);
   const [loadingResumes, setLoadingResumes] = useState(false);
 
   const navigate = useNavigate();
@@ -33,10 +32,10 @@ export default function Home() {
   const loadResumes = async () => {
     setLoadingResumes(true);
 
-    const resumes = await kv.list('resume:*', true) as KVItem[];
+    const resumes = await kv.list('resume:*', true);
     
     const parsedResumes = resumes?.map((resume) =>
-      JSON.parse(resume.value) as Resume
+      JSON.parse(resume.value)
     );
     console.log({ parsedResumes });
 
@@ -50,6 +49,15 @@ export default function Home() {
 
   
 
+
+
+  const handleDelete = async (e, id) => {
+    e.preventDefault(); // Prevent navigation
+    if (confirm("Are you sure you want to delete this resume?")) {
+      await kv.delete(`resume:${id}`);
+      setResumes(resumes.filter((r) => r.id !== id));
+    }
+  };
 
   return <main className="bg-[url('/images/bg-main.svg')] bg-cover">
     <Navbar/>
@@ -71,7 +79,7 @@ export default function Home() {
       {!loadingResumes &&  resumes.length > 0 && (
         <div className="resumes-section ">
           {resumes.map((resume) => (
-            <ResumeCard key={resume.id} resume={resume} />
+            <ResumeCard key={resume.id} resume={resume} onDelete={(e) => handleDelete(e, resume.id)} />
           ))}
         </div>
       )}

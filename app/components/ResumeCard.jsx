@@ -2,7 +2,7 @@ import { Link } from "react-router"; // <-- Correct
 import ScoreCircle from "./ScoreCircle";
 import { useEffect, useState } from "react";
 import { usePuterStore } from "~/lib/puter";
-const ResumeCard = ({ resume:{id,companyName,jobTitle,feedback,imagePath} }: { resume: Resume }) => {
+const ResumeCard = ({ resume:{id,companyName,jobTitle,feedback,imagePath}, onDelete }) => {
   const { fs} = usePuterStore();
   const [resumeUrl, setResumeUrl] = useState('');
   useEffect(() => {
@@ -18,9 +18,20 @@ const ResumeCard = ({ resume:{id,companyName,jobTitle,feedback,imagePath} }: { r
   
   return (
     <Link
-      to={`/resumes/${id}`}
-      className="resume-card animate-card animate-in fade-in duration-1000"
+      to={`/resume/${id}`}
+      className="resume-card animate-card animate-in fade-in duration-1000 relative group"
     >
+       <button
+        onClick={onDelete}
+        className="absolute top-2 right-2 z-10 p-2 bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-50"
+        title="Delete Resume"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-red-500">
+          <path d="M3 6h18"/>
+          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+        </svg>
+      </button>
       <div className="resume-card-header">
         <div className="flex flex-col gap-2">
           {companyName && <h2 className="text-black font-bold break-words">
@@ -55,4 +66,3 @@ const ResumeCard = ({ resume:{id,companyName,jobTitle,feedback,imagePath} }: { r
 };
 
 export default ResumeCard;
-

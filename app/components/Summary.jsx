@@ -2,7 +2,7 @@ import ScoreGauge from "~/components/ScoreGauge"
 import ScoreBadge from "./ScoreBadge";
 
 
-const Category = ({ title, score }: { title: string; score: number }) => {
+const Category = ({ title, score }) => {
   const textColor = score >= 7 ? 'text-green-600' : score > 4 ? 'text-yellow-600' : 'text-red-600';
 
 
@@ -24,22 +24,8 @@ const Category = ({ title, score }: { title: string; score: number }) => {
   )
 }
 
-type Feedback = {
-  overallScore: number;
-  toneAndStyle?: { score: number };
-  content?: { score: number };
-  structure?: { score: number };
-  skills?: { score: number };
-  job_alignment?: { rating: number };
-  sections?: {
-    skills?: { rating: number };
-    format_and_layout?: { rating: number };
-    summary?: { rating: number };
-  };
-};
 
-
-const Summary = ({ feedback }: { feedback: Feedback }) => {
+const Summary = ({ feedback }) => {
   return (
     <div className="bg-white rounded-2xl shadow-md w-full">
       <div className="flex flex-row items-center p-4 gap-8">

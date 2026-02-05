@@ -1,14 +1,8 @@
-export interface PdfConversionResult {
-  imageUrl: string;
-  file: File | null;
-  error?: string;
-}
-
-let pdfjsLib: any = null;
+let pdfjsLib = null;
 let isLoading = false;
-let loadPromise: Promise<any> | null = null;
+let loadPromise = null;
 
-async function loadPdfJs(): Promise<any> {
+async function loadPdfJs() {
   if (pdfjsLib) return pdfjsLib;
   if (loadPromise) return loadPromise;
 
@@ -25,9 +19,7 @@ async function loadPdfJs(): Promise<any> {
   return loadPromise;
 }
 
-export async function convertPdfToImage(
-  file: File
-): Promise<PdfConversionResult> {
+export async function convertPdfToImage(file) {
   try {
     const lib = await loadPdfJs();
 
@@ -47,7 +39,7 @@ export async function convertPdfToImage(
       context.imageSmoothingQuality = "high";
     }
 
-    await page.render({ canvasContext: context!, viewport }).promise;
+    await page.render({ canvasContext: context, viewport }).promise;
 
     return new Promise((resolve) => {
       canvas.toBlob(

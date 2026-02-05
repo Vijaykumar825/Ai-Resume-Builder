@@ -10,9 +10,6 @@ import ScoreBadge from "./ScoreBadge";
 const CategoryHeader = ({
   title,
   categoryScore,
-}: {
-  title: string;
-  categoryScore: number;
 }) => {
   return (
     <div className="flex flex-row gap-4 items-center py-2">
@@ -25,9 +22,6 @@ const CategoryHeader = ({
 const TipBox = ({
   type,
   tip,
-}: {
-  type: "good" | "improve";
-  tip: string;
 }) => (
   <div
     className={cn(
@@ -48,11 +42,11 @@ const TipBox = ({
   </div>
 );
 
-const Details = ({ feedback }: { feedback: any }) => {
-  const tips = feedback.improvement_suggestions.map((tip: string) => ({
+const Details = ({ feedback }) => {
+  const tips = feedback?.improvement_suggestions?.map((tip) => ({
     type: "improve",
     tip,
-  }));
+  })) || [];
 
   return (
     <div className="bg-gradient-to-b to-white rounded-2xl shadow-md w-full p-6">
@@ -90,7 +84,7 @@ const Details = ({ feedback }: { feedback: any }) => {
           </AccordionHeader>
           <AccordionContent itemId="keywords">
             <div className="grid grid-cols-2 gap-2">
-              {feedback.keywords_missing?.map((kw: string, index: number) => (
+              {feedback.keywords_missing?.map((kw, index) => (
                 <TipBox key={index} type="improve" tip={`Add keyword: ${kw}`} />
               ))}
             </div>

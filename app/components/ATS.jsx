@@ -1,34 +1,24 @@
 import React from 'react';
 
-interface Suggestion {
-  type: "good" | "improve";
-  tip: string;
-}
-
-interface ATSProps {
-  score: number; // out of 10
-  suggestions: Suggestion[];
-}
-
-const ATS: React.FC<ATSProps> = ({ score, suggestions }) => {
+const ATS = ({ score, suggestions }) => {
   // Determine background gradient based on score
-  const gradientClass = score > 6.9
+  const gradientClass = score > 69
     ? 'from-green-100'
-    : score > 4.9
+    : score > 49
       ? 'from-yellow-100'
       : 'from-red-100';
 
   // Determine icon based on score
-  const iconSrc = score > 6.9
+  const iconSrc = score > 69
     ? '/icons/ats-good.svg'
-    : score > 4.9
+    : score > 49
       ? '/icons/ats-warning.svg'
       : '/icons/ats-bad.svg';
 
   // Determine subtitle based on score
-  const subtitle = score > 6.9
+  const subtitle = score > 69
     ? 'Great Job!'
-    : score > 4.9
+    : score > 49
       ? 'Good Start'
       : 'Needs Improvement';
 
@@ -38,7 +28,7 @@ const ATS: React.FC<ATSProps> = ({ score, suggestions }) => {
       <div className="flex items-center gap-4 mb-6">
         <img src={iconSrc} alt="ATS Score Icon" className="w-12 h-12" />
         <div>
-          <h2 className="text-2xl font-bold">ATS Score - {score.toFixed(1)}/10</h2>
+          <h2 className="text-2xl font-bold">ATS Score - {score.toFixed(1)}/100</h2>
         </div>
       </div>
 
