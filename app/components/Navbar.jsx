@@ -7,7 +7,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     await auth.signOut();
-    navigate('/');
+    navigate('/auth');
   };
 
   return (
